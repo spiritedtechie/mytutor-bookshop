@@ -2,6 +2,8 @@ package co.uk.mytutor;
 
 import co.uk.mytutor.model.Book;
 
+import java.util.Optional;
+
 public interface BookRepository {
-    Book get(String name);
+    Optional<Book> get(String name);
 }

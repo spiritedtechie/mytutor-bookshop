@@ -4,6 +4,7 @@ import co.uk.mytutor.model.Book;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class InMemoryBookRepository implements BookRepository {
@@ -25,7 +26,7 @@ public class InMemoryBookRepository implements BookRepository {
     }
 
     @Override
-    public Book get(String name) {
-        return books.get(name);
+    public Optional<Book> get(String name) {
+        return Optional.ofNullable(books.get(name));
     }
 }

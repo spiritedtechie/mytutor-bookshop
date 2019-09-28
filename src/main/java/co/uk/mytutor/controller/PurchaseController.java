@@ -5,10 +5,14 @@ import co.uk.mytutor.model.Book;
 import co.uk.mytutor.model.PurchaseStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
 
 @RestController
 public class PurchaseController {
@@ -22,18 +26,31 @@ public class PurchaseController {
     }
 
     @RequestMapping(value = "/order", method = RequestMethod.POST)
-    public Response purchase(@RequestParam(name = "book_name") String bookName,
-                             @RequestParam Integer quantity) {
+    public ResponseEntity purchase(@RequestParam(name = "book_name") String bookName,
+                                   @RequestParam Integer quantity) {
 
         LOGGER.info("purchase book: " + bookName + ", quantity: " + quantity);
 
-        PurchaseStatus purchaseStatus = attemptBookPurchase(bookName, quantity);
+        Optional<Book> book = findBook(bookName);
 
-        return responseFor(purchaseStatus);
+        if (!book.isPresent()) {
+            return buildHttpResponse(HttpStatus.NOT_FOUND, new Response("Book was not found."));
+        }
+
+        PurchaseStatus purchaseStatus = attemptBookPurchase(book.get(), quantity);
+
+        return buildHttpResponse(HttpStatus.OK, responseFor(purchaseStatus));
     }
 
-    private PurchaseStatus attemptBookPurchase(@RequestParam(name = "book_name") String bookName, @RequestParam Integer quantity) {
-        Book book = bookRepository.get(bookName);
+    private ResponseEntity<Response> buildHttpResponse(HttpStatus httpStatus, Response response) {
+        return ResponseEntity.status(httpStatus).body(response);
+    }
+
+    private Optional<Book> findBook(String bookName) {
+        return bookRepository.get(bookName);
+    }
+
+    private PurchaseStatus attemptBookPurchase(Book book, Integer quantity) {
         return book.purchase(quantity);
     }
 

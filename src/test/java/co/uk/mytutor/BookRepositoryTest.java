@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 public class BookRepositoryTest {
 
@@ -22,7 +23,7 @@ public class BookRepositoryTest {
         int initialStock = 10;
         BigDecimal price = BigDecimal.valueOf(25);
 
-        Book book = bookRepository.get(bookName);
+        Book book = bookRepository.get(bookName).get();
 
         Book expectedBook = new Book(bookName, initialStock, price);
         Assertions.assertThat(book).isEqualTo(expectedBook);
@@ -34,7 +35,7 @@ public class BookRepositoryTest {
         int initialStock = 10;
         BigDecimal price = BigDecimal.valueOf(20);
 
-        Book book = bookRepository.get(bookName);
+        Book book = bookRepository.get(bookName).get();
 
         Book expectedBook = new Book(bookName, initialStock, price);
         Assertions.assertThat(book).isEqualTo(expectedBook);
@@ -46,7 +47,7 @@ public class BookRepositoryTest {
         int initialStock = 10;
         BigDecimal price = BigDecimal.valueOf(23);
 
-        Book book = bookRepository.get(bookName);
+        Book book = bookRepository.get(bookName).get();
 
         Book expectedBook = new Book(bookName, initialStock, price);
         Assertions.assertThat(book).isEqualTo(expectedBook);
@@ -58,7 +59,7 @@ public class BookRepositoryTest {
         int initialStock = 10;
         BigDecimal price = BigDecimal.valueOf(30);
 
-        Book book = bookRepository.get(bookName);
+        Book book = bookRepository.get(bookName).get();
 
         Book expectedBook = new Book(bookName, initialStock, price);
         Assertions.assertThat(book).isEqualTo(expectedBook);
@@ -70,11 +71,18 @@ public class BookRepositoryTest {
         int initialStock = 10;
         BigDecimal price = BigDecimal.valueOf(27);
 
-        Book book = bookRepository.get(bookName);
+        Book book = bookRepository.get(bookName).get();
 
         Book expectedBook = new Book(bookName, initialStock, price);
         Assertions.assertThat(book).isEqualTo(expectedBook);
     }
 
+    @Test
+    public void testGetUnknownBook() {
+
+        Optional<Book> book = bookRepository.get("unknown");
+
+        Assertions.assertThat(book).isEmpty();
+    }
 
 }

@@ -12,6 +12,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Optional;
+
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -22,6 +24,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @WebMvcTest(PurchaseController.class)
 public class PurchaseControllerTest {
+
+    private static final String BOOK_NAME = "A";
+    private static final Integer QUANTITY = 3;
 
     @Autowired
     private MockMvc mvc;
@@ -35,17 +40,15 @@ public class PurchaseControllerTest {
 
     @Test
     public void testPurchaseReturnsOutOfStockMessage() throws Exception {
-        String bookName = "A";
-        Integer quantity = 3;
 
         Book mockedBook = mock(Book.class);
-        when(bookRepository.get(bookName)).thenReturn(mockedBook);
-        when(mockedBook.purchase(quantity)).thenReturn(new PurchaseStatus.OutOfStock());
+        when(bookRepository.get(BOOK_NAME)).thenReturn(Optional.of(mockedBook));
+        when(mockedBook.purchase(QUANTITY)).thenReturn(new PurchaseStatus.OutOfStock());
 
         var resultActions = mvc.perform(
                 post("/order")
-                        .param("book_name", bookName)
-                        .param("quantity", quantity.toString())
+                        .param("book_name", BOOK_NAME)
+                        .param("quantity", QUANTITY.toString())
         );
 
         resultActions
@@ -55,21 +58,33 @@ public class PurchaseControllerTest {
 
     @Test
     public void testPurchaseReturnsSuccessMessage() throws Exception {
-        String bookName = "A";
-        Integer quantity = 3;
-
         Book mockedBook = mock(Book.class);
-        when(bookRepository.get(bookName)).thenReturn(mockedBook);
-        when(mockedBook.purchase(quantity)).thenReturn(new PurchaseStatus.Successful());
+        when(bookRepository.get(BOOK_NAME)).thenReturn(Optional.of(mockedBook));
+        when(mockedBook.purchase(QUANTITY)).thenReturn(new PurchaseStatus.Successful());
 
         var resultActions = mvc.perform(
                 post("/order")
-                        .param("book_name", bookName)
-                        .param("quantity", quantity.toString())
+                        .param("book_name", BOOK_NAME)
+                        .param("quantity", QUANTITY.toString())
         );
 
         resultActions
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message", is("Thank you for your purchase!")));
+    }
+
+    @Test
+    public void testPurchaseWhereBookNotFound() throws Exception {
+        when(bookRepository.get(BOOK_NAME)).thenReturn(Optional.empty());
+
+        var resultActions = mvc.perform(
+                post("/order")
+                        .param("book_name", BOOK_NAME)
+                        .param("quantity", QUANTITY.toString())
+        );
+
+        resultActions
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message", is("Book was not found.")));
     }
 }
