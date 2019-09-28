@@ -3,6 +3,7 @@
 Requirements:
 
  - Java 11 SDK
+ - Maven 3
 
 To run directly:
 
