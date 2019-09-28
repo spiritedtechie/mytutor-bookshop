@@ -1,6 +1,8 @@
 package co.uk.mytutor.service;
 
+import co.uk.mytutor.AccountRepository;
 import co.uk.mytutor.BookRepository;
+import co.uk.mytutor.model.Account;
 import co.uk.mytutor.model.Book;
 import co.uk.mytutor.model.PurchaseStatus;
 import org.junit.Before;
@@ -13,47 +15,72 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BookPurchaserTest {
+    public static final String BOOK_NAME = "A";
+    public static final int REQUIRED_QUANTITY = 3;
 
     @Mock
     private BookRepository bookRepository;
 
     @Mock
-    private Book book;
+    private AccountRepository accountRepository;
+
+    @Mock
+    private Account mockAccount;
+
+    @Mock
+    private Book mockBook;
 
     private BookPurchaser bookPurchaser;
 
     @Before
     public void setup() {
-        this.bookPurchaser = new BookPurchaser(bookRepository);
+        this.bookPurchaser = new BookPurchaser(accountRepository, bookRepository);
     }
 
     @Test
-    public void testCoordinatesPurchase() {
-        String bookName = "A";
-        int requiredQuantity = 3;
+    public void testCreatesPurchase() {
+        when(bookRepository.get(BOOK_NAME)).thenReturn(Optional.of(mockBook));
+        when(mockBook.purchase(BookPurchaserTest.REQUIRED_QUANTITY)).thenReturn(new PurchaseStatus.Successful());
+        when(accountRepository.get()).thenReturn(mockAccount);
 
-        when(bookRepository.get(bookName)).thenReturn(Optional.of(book));
-        when(book.purchase(requiredQuantity)).thenReturn(new PurchaseStatus.Successful());
+        bookPurchaser.purchase(BOOK_NAME, BookPurchaserTest.REQUIRED_QUANTITY);
 
-        bookPurchaser.purchase(bookName, requiredQuantity);
-
-        Mockito.verify(bookRepository).get(bookName);
-        Mockito.verify(book).purchase(requiredQuantity);
+        Mockito.verify(bookRepository).get(BOOK_NAME);
+        Mockito.verify(mockBook).purchase(BookPurchaserTest.REQUIRED_QUANTITY);
     }
 
     @Test
     public void testWhereBookNotFound() {
-        String bookName = "A";
-        int requiredQuantity = 3;
+        when(bookRepository.get(BookPurchaserTest.BOOK_NAME)).thenReturn(Optional.empty());
 
-        when(bookRepository.get(bookName)).thenReturn(Optional.empty());
-
-        PurchaseStatus result = bookPurchaser.purchase(bookName, requiredQuantity);
+        PurchaseStatus result = bookPurchaser.purchase(BookPurchaserTest.BOOK_NAME, BookPurchaserTest.REQUIRED_QUANTITY);
 
         assertThat(result).isInstanceOf(PurchaseStatus.NonExistentBook.class);
     }
+
+    @Test
+    public void testUpdatesBalanceIfSuccessfulPurchase() {
+        when(bookRepository.get(BookPurchaserTest.BOOK_NAME)).thenReturn(Optional.of(mockBook));
+        when(mockBook.purchase(BookPurchaserTest.REQUIRED_QUANTITY)).thenReturn(new PurchaseStatus.Successful());
+        when(accountRepository.get()).thenReturn(mockAccount);
+
+        bookPurchaser.purchase(BookPurchaserTest.BOOK_NAME, BookPurchaserTest.REQUIRED_QUANTITY);
+
+        verify(mockAccount).recordPurchase(mockBook, BookPurchaserTest.REQUIRED_QUANTITY);
+    }
+
+    @Test
+    public void testDoesNotUpdatesBalanceIfUnsuccessfulPurchase() {
+        when(bookRepository.get(BOOK_NAME)).thenReturn(Optional.of(mockBook));
+        when(mockBook.purchase(REQUIRED_QUANTITY)).thenReturn(new PurchaseStatus.OutOfStock());
+
+        bookPurchaser.purchase(BOOK_NAME, REQUIRED_QUANTITY);
+
+        verify(mockAccount, never()).recordPurchase(any(), any());
+    }
+
 }

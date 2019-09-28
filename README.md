@@ -8,7 +8,7 @@ To run directly:
 
 ```
     cd <project_dir>
-    mvn spring-boot:run
+    mvn clean spring-boot:run
 ```
 
 To build a standalone executable and run:
