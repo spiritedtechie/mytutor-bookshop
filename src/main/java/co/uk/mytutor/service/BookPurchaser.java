@@ -1,11 +1,10 @@
 package co.uk.mytutor.service;
 
-import co.uk.mytutor.AccountRepository;
-import co.uk.mytutor.BookRepository;
-import co.uk.mytutor.controller.PurchaseController;
 import co.uk.mytutor.model.Account;
 import co.uk.mytutor.model.Book;
 import co.uk.mytutor.model.PurchaseStatus;
+import co.uk.mytutor.repository.AccountRepository;
+import co.uk.mytutor.repository.BookRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

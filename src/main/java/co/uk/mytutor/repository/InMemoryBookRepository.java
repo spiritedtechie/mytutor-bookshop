@@ -1,10 +1,9 @@
-package co.uk.mytutor;
+package co.uk.mytutor.repository;
 
 import co.uk.mytutor.model.Book;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 

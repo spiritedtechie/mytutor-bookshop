@@ -1,4 +1,4 @@
-package co.uk.mytutor;
+package co.uk.mytutor.repository;
 
 import co.uk.mytutor.model.Account;
 import org.springframework.stereotype.Component;

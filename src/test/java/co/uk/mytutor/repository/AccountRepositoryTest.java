@@ -1,13 +1,11 @@
-package co.uk.mytutor;
+package co.uk.mytutor.repository;
 
 import co.uk.mytutor.model.Account;
 import co.uk.mytutor.model.Book;
-import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
