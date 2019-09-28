@@ -1,12 +1,14 @@
 package co.uk.mytutor;
 
 import co.uk.mytutor.model.Book;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Component
 public class InMemoryBookRepository implements BookRepository {
 
     private ConcurrentHashMap<String, Book> books = new ConcurrentHashMap<>();

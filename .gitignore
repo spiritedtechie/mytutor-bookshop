@@ -1,5 +1,9 @@
+# Intellij
 .idea
 *.iml
+
+# Maven
+target
 
 # Created by .ignore support plugin (hsz.mobi)
 ### Java template
