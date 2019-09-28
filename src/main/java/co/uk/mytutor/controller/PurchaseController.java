@@ -38,7 +38,7 @@ public class PurchaseController {
     }
 
     private Response responseFor(PurchaseStatus status) {
-        if (status instanceof PurchaseStatus.Successfull) {
+        if (status instanceof PurchaseStatus.Successful) {
             return new Response("Thank you for your purchase!");
         } else if (status instanceof PurchaseStatus.OutOfStock) {
             return new Response("Sorry, we are out of stock.");

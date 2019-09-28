@@ -60,7 +60,7 @@ public class PurchaseControllerTest {
 
         Book mockedBook = mock(Book.class);
         when(bookRepository.get(bookName)).thenReturn(mockedBook);
-        when(mockedBook.purchase(quantity)).thenReturn(new PurchaseStatus.Successfull());
+        when(mockedBook.purchase(quantity)).thenReturn(new PurchaseStatus.Successful());
 
         var resultActions = mvc.perform(
                 post("/order")

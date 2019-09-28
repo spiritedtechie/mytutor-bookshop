@@ -1,7 +1,7 @@
 package co.uk.mytutor.model;
 
 import co.uk.mytutor.model.PurchaseStatus.OutOfStock;
-import co.uk.mytutor.model.PurchaseStatus.Successfull;
+import co.uk.mytutor.model.PurchaseStatus.Successful;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -56,7 +56,7 @@ public class Book {
             return new OutOfStock();
         } else {
             takeFromStock(requiredQuantity);
-            return new Successfull();
+            return new Successful();
         }
     }
 

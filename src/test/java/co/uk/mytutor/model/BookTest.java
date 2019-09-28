@@ -15,7 +15,7 @@ public class BookTest {
         PurchaseStatus result = book.purchase(1);
 
         assertThat(book.getStock()).isEqualTo(9);
-        assertThat(result).isInstanceOf(PurchaseStatus.Successfull.class);
+        assertThat(result).isInstanceOf(PurchaseStatus.Successful.class);
     }
 
     @Test
@@ -25,7 +25,7 @@ public class BookTest {
         PurchaseStatus result = book.purchase(3);
 
         assertThat(book.getStock()).isEqualTo(7);
-        assertThat(result).isInstanceOf(PurchaseStatus.Successfull.class);
+        assertThat(result).isInstanceOf(PurchaseStatus.Successful.class);
     }
 
     @Test
@@ -35,7 +35,7 @@ public class BookTest {
         PurchaseStatus result = book.purchase(1);
 
         assertThat(book.getStock()).isEqualTo(0);
-        assertThat(result).isInstanceOf(PurchaseStatus.Successfull.class);
+        assertThat(result).isInstanceOf(PurchaseStatus.Successful.class);
     }
 
     @Test
