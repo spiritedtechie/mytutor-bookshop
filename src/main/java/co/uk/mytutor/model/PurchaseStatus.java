@@ -2,11 +2,11 @@ package co.uk.mytutor.model;
 
 public class PurchaseStatus {
 
-    static class Successfull extends PurchaseStatus {
+    public static class Successfull extends PurchaseStatus {
 
     }
 
-    static class OutOfStock extends PurchaseStatus {
+    public static class OutOfStock extends PurchaseStatus {
 
     }
 }
