@@ -1,8 +1,7 @@
 package co.uk.mytutor.controller;
 
-import co.uk.mytutor.BookRepository;
-import co.uk.mytutor.model.Book;
 import co.uk.mytutor.model.PurchaseStatus;
+import co.uk.mytutor.service.BookPurchaser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,10 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Optional;
-
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -32,7 +28,7 @@ public class PurchaseControllerTest {
     private MockMvc mvc;
 
     @MockBean
-    private BookRepository bookRepository;
+    private BookPurchaser bookPurchaser;
 
     @Before
     public void setup() {
@@ -40,10 +36,7 @@ public class PurchaseControllerTest {
 
     @Test
     public void testPurchaseReturnsOutOfStockMessage() throws Exception {
-
-        Book mockedBook = mock(Book.class);
-        when(bookRepository.get(BOOK_NAME)).thenReturn(Optional.of(mockedBook));
-        when(mockedBook.purchase(QUANTITY)).thenReturn(new PurchaseStatus.OutOfStock());
+        when(bookPurchaser.purchase(BOOK_NAME, QUANTITY)).thenReturn(new PurchaseStatus.OutOfStock());
 
         var resultActions = mvc.perform(
                 post("/order")
@@ -58,9 +51,7 @@ public class PurchaseControllerTest {
 
     @Test
     public void testPurchaseReturnsSuccessMessage() throws Exception {
-        Book mockedBook = mock(Book.class);
-        when(bookRepository.get(BOOK_NAME)).thenReturn(Optional.of(mockedBook));
-        when(mockedBook.purchase(QUANTITY)).thenReturn(new PurchaseStatus.Successful());
+        when(bookPurchaser.purchase(BOOK_NAME, QUANTITY)).thenReturn(new PurchaseStatus.Successful());
 
         var resultActions = mvc.perform(
                 post("/order")
@@ -75,7 +66,7 @@ public class PurchaseControllerTest {
 
     @Test
     public void testPurchaseWhereBookNotFound() throws Exception {
-        when(bookRepository.get(BOOK_NAME)).thenReturn(Optional.empty());
+        when(bookPurchaser.purchase(BOOK_NAME, QUANTITY)).thenReturn(new PurchaseStatus.NonExistentBook());
 
         var resultActions = mvc.perform(
                 post("/order")
