@@ -47,4 +47,22 @@ public class BookTest {
         assertThat(result).isInstanceOf(PurchaseStatus.OutOfStock.class);
     }
 
+    @Test
+    public void testGetPurchasePrice() {
+        Book book = new Book("A", 5, BigDecimal.valueOf(14));
+
+        BigDecimal result = book.getPurchasePrice(3);
+
+        assertThat(result).isEqualTo(BigDecimal.valueOf(42));
+    }
+
+    @Test
+    public void testGetPurchasePriceDouble() {
+        Book book = new Book("A", 5, BigDecimal.valueOf(14.54));
+
+        BigDecimal result = book.getPurchasePrice(3);
+
+        assertThat(result).isEqualTo(BigDecimal.valueOf(43.62));
+    }
+
 }

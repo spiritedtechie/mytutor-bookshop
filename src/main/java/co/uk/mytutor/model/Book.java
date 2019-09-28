@@ -51,6 +51,10 @@ public class Book {
         return Integer.valueOf(this.stock.get());
     }
 
+    public BigDecimal getPurchasePrice(Integer quantity) {
+        return price.multiply(BigDecimal.valueOf(quantity));
+    }
+
     public synchronized PurchaseStatus purchase(Integer requiredQuantity) {
         if (leavesBookOutOfStock(requiredQuantity)) {
             return new OutOfStock();
@@ -67,6 +71,4 @@ public class Book {
     private boolean leavesBookOutOfStock(Integer requiredQuantity) {
         return this.stock.get() - requiredQuantity < 0;
     }
-
-
 }
