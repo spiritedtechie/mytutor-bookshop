@@ -10,8 +10,8 @@ public class AccountTest {
 
     @Test
     public void testRecordPurchase() {
-        Book book = new Book("A", 10, BigDecimal.valueOf(10));
-        Account account = new Account(BigDecimal.valueOf(20));
+        Book book = new Book("A", 10, 10);
+        Account account = new Account(20);
 
         account.recordPurchase(book, 4);
 

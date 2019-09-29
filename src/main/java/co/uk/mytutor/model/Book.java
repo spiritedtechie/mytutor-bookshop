@@ -19,6 +19,10 @@ public class Book {
         this.price = price;
     }
 
+    public Book(String name, Integer initialStock, int price) {
+        this(name, initialStock, new BigDecimal(price));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

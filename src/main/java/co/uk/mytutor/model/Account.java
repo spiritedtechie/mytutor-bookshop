@@ -10,6 +10,10 @@ public class Account {
         this.balance = balance;
     }
 
+    public Account(int balance) {
+        this(new BigDecimal(balance));
+    }
+
     public void recordPurchase(Book book, Integer quantity) {
         BigDecimal purchasePriceTotal = book.getPurchasePrice(quantity);
 

@@ -30,7 +30,7 @@ public class AccountRepositoryTest {
         Account account1 = accountRepository.get();
         Account account2 = accountRepository.get();
 
-        account1.recordPurchase(new Book("A", 10, new BigDecimal(10)), 2);
+        account1.recordPurchase(new Book("A", 10, 10), 2);
 
         assertThat(account1).isSameAs(account2);
         assertThat(account1.getBalance()).isEqualTo(account2.getBalance());

@@ -10,7 +10,7 @@ public class BookTest {
 
     @Test
     public void testPurchaseSuccessfulIfEnoughStock() {
-        Book book = new Book("A", 10, BigDecimal.valueOf(14));
+        Book book = new Book("A", 10, 14);
 
         PurchaseStatus result = book.purchase(1);
 
@@ -20,7 +20,7 @@ public class BookTest {
 
     @Test
     public void testPurchaseSuccessForMultipleQuantity() {
-        Book book = new Book("A", 10, BigDecimal.valueOf(14));
+        Book book = new Book("A", 10, 14);
 
         PurchaseStatus result = book.purchase(3);
 
@@ -30,7 +30,7 @@ public class BookTest {
 
     @Test
     public void testPurchaseToZeroStock() {
-        Book book = new Book("A", 1, BigDecimal.valueOf(14));
+        Book book = new Book("A", 1, 14);
 
         PurchaseStatus result = book.purchase(1);
 
@@ -40,7 +40,7 @@ public class BookTest {
 
     @Test
     public void testPurchaseToInsufficientStock() {
-        Book book = new Book("A", 5, BigDecimal.valueOf(14));
+        Book book = new Book("A", 5, 14);
 
         PurchaseStatus result = book.purchase(10);
 
@@ -49,7 +49,7 @@ public class BookTest {
 
     @Test
     public void testGetPurchasePrice() {
-        Book book = new Book("A", 5, BigDecimal.valueOf(14));
+        Book book = new Book("A", 5, 14);
 
         BigDecimal result = book.getPurchasePrice(3);
 

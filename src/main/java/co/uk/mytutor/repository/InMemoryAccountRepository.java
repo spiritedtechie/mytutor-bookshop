@@ -3,15 +3,13 @@ package co.uk.mytutor.repository;
 import co.uk.mytutor.model.Account;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-
 @Component
 public class InMemoryAccountRepository implements AccountRepository {
 
     private final Account account;
 
     public InMemoryAccountRepository() {
-        this.account = new Account(new BigDecimal(500));
+        this.account = new Account(500);
     }
 
     @Override

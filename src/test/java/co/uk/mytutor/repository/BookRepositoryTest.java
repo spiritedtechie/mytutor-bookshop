@@ -5,7 +5,6 @@ import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 
 public class BookRepositoryTest {
@@ -21,7 +20,7 @@ public class BookRepositoryTest {
     public void testGetBookA() {
         String bookName = "A";
         int initialStock = 10;
-        BigDecimal price = BigDecimal.valueOf(25);
+        int price = 25;
 
         Book book = bookRepository.get(bookName).get();
 
@@ -33,7 +32,7 @@ public class BookRepositoryTest {
     public void testGetBookB() {
         String bookName = "B";
         int initialStock = 10;
-        BigDecimal price = BigDecimal.valueOf(20);
+        int price = 20;
 
         Book book = bookRepository.get(bookName).get();
 
@@ -45,7 +44,7 @@ public class BookRepositoryTest {
     public void testGetBookC() {
         String bookName = "C";
         int initialStock = 10;
-        BigDecimal price = BigDecimal.valueOf(23);
+        int price = 23;
 
         Book book = bookRepository.get(bookName).get();
 
@@ -57,7 +56,7 @@ public class BookRepositoryTest {
     public void testGetBookD() {
         String bookName = "D";
         int initialStock = 10;
-        BigDecimal price = BigDecimal.valueOf(30);
+        int price = 30;
 
         Book book = bookRepository.get(bookName).get();
 
@@ -69,7 +68,7 @@ public class BookRepositoryTest {
     public void testGetBookE() {
         String bookName = "E";
         int initialStock = 10;
-        BigDecimal price = BigDecimal.valueOf(27);
+        int price = 27;
 
         Book book = bookRepository.get(bookName).get();
 
@@ -79,7 +78,6 @@ public class BookRepositoryTest {
 
     @Test
     public void testGetUnknownBook() {
-
         Optional<Book> book = bookRepository.get("unknown");
 
         Assertions.assertThat(book).isEmpty();
