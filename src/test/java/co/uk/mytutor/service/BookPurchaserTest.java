@@ -44,7 +44,7 @@ public class BookPurchaserTest {
     @Test
     public void testCreatesPurchase() {
         when(bookRepository.get(BOOK_NAME)).thenReturn(Optional.of(mockBook));
-        when(mockBook.purchase(BookPurchaserTest.REQUIRED_QUANTITY)).thenReturn(new PurchaseStatus.Successful());
+        when(mockBook.purchase(BookPurchaserTest.REQUIRED_QUANTITY)).thenReturn(PurchaseStatus.successful());
         when(accountRepository.get()).thenReturn(mockAccount);
 
         bookPurchaser.purchase(BOOK_NAME, BookPurchaserTest.REQUIRED_QUANTITY);
@@ -65,7 +65,7 @@ public class BookPurchaserTest {
     @Test
     public void testUpdatesBalanceIfSuccessfulPurchase() {
         when(bookRepository.get(BookPurchaserTest.BOOK_NAME)).thenReturn(Optional.of(mockBook));
-        when(mockBook.purchase(BookPurchaserTest.REQUIRED_QUANTITY)).thenReturn(new PurchaseStatus.Successful());
+        when(mockBook.purchase(BookPurchaserTest.REQUIRED_QUANTITY)).thenReturn(PurchaseStatus.successful());
         when(accountRepository.get()).thenReturn(mockAccount);
 
         bookPurchaser.purchase(BookPurchaserTest.BOOK_NAME, BookPurchaserTest.REQUIRED_QUANTITY);
@@ -76,7 +76,7 @@ public class BookPurchaserTest {
     @Test
     public void testDoesNotUpdatesBalanceIfUnsuccessfulPurchase() {
         when(bookRepository.get(BOOK_NAME)).thenReturn(Optional.of(mockBook));
-        when(mockBook.purchase(REQUIRED_QUANTITY)).thenReturn(new PurchaseStatus.OutOfStock());
+        when(mockBook.purchase(REQUIRED_QUANTITY)).thenReturn(PurchaseStatus.outOfStock());
 
         bookPurchaser.purchase(BOOK_NAME, REQUIRED_QUANTITY);
 

@@ -28,7 +28,7 @@ public class BookPurchaser {
         Optional<Book> book = findBook(bookName);
 
         if (!book.isPresent()) {
-            return new PurchaseStatus.NonExistentBook();
+            return PurchaseStatus.nonExistentBook();
         }
 
         PurchaseStatus purchaseStatus = attemptBookPurchase(book.get(), quantity);

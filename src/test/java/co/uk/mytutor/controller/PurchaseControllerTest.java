@@ -36,7 +36,7 @@ public class PurchaseControllerTest {
 
     @Test
     public void testPurchaseReturnsOutOfStockMessage() throws Exception {
-        when(bookPurchaser.purchase(BOOK_NAME, QUANTITY)).thenReturn(new PurchaseStatus.OutOfStock());
+        when(bookPurchaser.purchase(BOOK_NAME, QUANTITY)).thenReturn(PurchaseStatus.outOfStock());
 
         var resultActions = mvc.perform(
                 post("/order")
@@ -51,7 +51,7 @@ public class PurchaseControllerTest {
 
     @Test
     public void testPurchaseReturnsSuccessMessage() throws Exception {
-        when(bookPurchaser.purchase(BOOK_NAME, QUANTITY)).thenReturn(new PurchaseStatus.Successful());
+        when(bookPurchaser.purchase(BOOK_NAME, QUANTITY)).thenReturn(PurchaseStatus.successful());
 
         var resultActions = mvc.perform(
                 post("/order")
@@ -66,7 +66,7 @@ public class PurchaseControllerTest {
 
     @Test
     public void testPurchaseWhereBookNotFound() throws Exception {
-        when(bookPurchaser.purchase(BOOK_NAME, QUANTITY)).thenReturn(new PurchaseStatus.NonExistentBook());
+        when(bookPurchaser.purchase(BOOK_NAME, QUANTITY)).thenReturn(PurchaseStatus.nonExistentBook());
 
         var resultActions = mvc.perform(
                 post("/order")

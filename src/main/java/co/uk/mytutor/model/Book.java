@@ -1,8 +1,5 @@
 package co.uk.mytutor.model;
 
-import co.uk.mytutor.model.PurchaseStatus.OutOfStock;
-import co.uk.mytutor.model.PurchaseStatus.Successful;
-
 import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -61,10 +58,10 @@ public class Book {
 
     public synchronized PurchaseStatus purchase(Integer requiredQuantity) {
         if (leavesBookOutOfStock(requiredQuantity)) {
-            return new OutOfStock();
+            return PurchaseStatus.outOfStock();
         } else {
             takeFromStock(requiredQuantity);
-            return new Successful();
+            return PurchaseStatus.successful();
         }
     }
 
