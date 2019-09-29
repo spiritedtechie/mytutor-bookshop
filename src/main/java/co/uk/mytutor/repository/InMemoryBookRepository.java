@@ -12,17 +12,17 @@ public class InMemoryBookRepository implements BookRepository {
     private final ConcurrentHashMap<String, Book> books = new ConcurrentHashMap<>();
 
     public InMemoryBookRepository() {
-        Book a = new Book("A", 10, 25);
-        Book b = new Book("B", 10, 20);
-        Book c = new Book("C", 10, 23);
-        Book d = new Book("D", 10, 30);
-        Book e = new Book("E", 10, 27);
+        var bookA = new Book("A", 10, 25);
+        var bookB = new Book("B", 10, 20);
+        var bookC = new Book("C", 10, 23);
+        var bookD = new Book("D", 10, 30);
+        var bookE = new Book("E", 10, 27);
 
-        books.put(a.getName(), a);
-        books.put(b.getName(), b);
-        books.put(c.getName(), c);
-        books.put(d.getName(), d);
-        books.put(e.getName(), e);
+        books.put(bookA.getName(), bookA);
+        books.put(bookB.getName(), bookB);
+        books.put(bookC.getName(), bookC);
+        books.put(bookD.getName(), bookD);
+        books.put(bookE.getName(), bookE);
     }
 
     @Override

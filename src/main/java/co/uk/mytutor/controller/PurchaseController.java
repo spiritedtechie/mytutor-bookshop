@@ -28,7 +28,7 @@ public class PurchaseController {
 
         LOGGER.info("purchase book: " + bookName + ", quantity: " + quantity);
 
-        PurchaseStatus purchaseStatus = bookPurchaser.purchase(bookName, quantity);
+        var purchaseStatus = bookPurchaser.purchase(bookName, quantity);
 
         return responseFor(purchaseStatus);
     }

@@ -1,11 +1,10 @@
 package co.uk.mytutor.repository;
 
 import co.uk.mytutor.model.Book;
-import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Optional;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class BookRepositoryTest {
 
@@ -18,69 +17,69 @@ public class BookRepositoryTest {
 
     @Test
     public void testGetBookA() {
-        String bookName = "A";
-        int initialStock = 10;
-        int price = 25;
+        var bookName = "A";
+        var initialStock = 10;
+        var price = 25;
 
-        Book book = bookRepository.get(bookName).get();
+        var book = bookRepository.get(bookName).get();
 
-        Book expectedBook = new Book(bookName, initialStock, price);
-        Assertions.assertThat(book).isEqualTo(expectedBook);
+        var expectedBook = new Book(bookName, initialStock, price);
+        assertThat(book).isEqualTo(expectedBook);
     }
 
     @Test
     public void testGetBookB() {
-        String bookName = "B";
-        int initialStock = 10;
-        int price = 20;
+        var bookName = "B";
+        var initialStock = 10;
+        var price = 20;
 
-        Book book = bookRepository.get(bookName).get();
+        var book = bookRepository.get(bookName).get();
 
-        Book expectedBook = new Book(bookName, initialStock, price);
-        Assertions.assertThat(book).isEqualTo(expectedBook);
+        var expectedBook = new Book(bookName, initialStock, price);
+        assertThat(book).isEqualTo(expectedBook);
     }
 
     @Test
     public void testGetBookC() {
-        String bookName = "C";
-        int initialStock = 10;
-        int price = 23;
+        var bookName = "C";
+        var initialStock = 10;
+        var price = 23;
 
-        Book book = bookRepository.get(bookName).get();
+        var book = bookRepository.get(bookName).get();
 
-        Book expectedBook = new Book(bookName, initialStock, price);
-        Assertions.assertThat(book).isEqualTo(expectedBook);
+        var expectedBook = new Book(bookName, initialStock, price);
+        assertThat(book).isEqualTo(expectedBook);
     }
 
     @Test
     public void testGetBookD() {
-        String bookName = "D";
-        int initialStock = 10;
-        int price = 30;
+        var bookName = "D";
+        var initialStock = 10;
+        var price = 30;
 
-        Book book = bookRepository.get(bookName).get();
+        var book = bookRepository.get(bookName).get();
 
-        Book expectedBook = new Book(bookName, initialStock, price);
-        Assertions.assertThat(book).isEqualTo(expectedBook);
+        var expectedBook = new Book(bookName, initialStock, price);
+        assertThat(book).isEqualTo(expectedBook);
     }
 
     @Test
     public void testGetBookE() {
-        String bookName = "E";
-        int initialStock = 10;
-        int price = 27;
+        var bookName = "E";
+        var initialStock = 10;
+        var price = 27;
 
-        Book book = bookRepository.get(bookName).get();
+        var book = bookRepository.get(bookName).get();
 
-        Book expectedBook = new Book(bookName, initialStock, price);
-        Assertions.assertThat(book).isEqualTo(expectedBook);
+        var expectedBook = new Book(bookName, initialStock, price);
+        assertThat(book).isEqualTo(expectedBook);
     }
 
     @Test
     public void testGetUnknownBook() {
-        Optional<Book> book = bookRepository.get("unknown");
+        var bookOptional = bookRepository.get("unknown");
 
-        Assertions.assertThat(book).isEmpty();
+        assertThat(bookOptional).isEmpty();
     }
 
 }

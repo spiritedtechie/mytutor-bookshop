@@ -24,7 +24,7 @@ public class Book {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Book book = (Book) o;
+        var book = (Book) o;
         return name.equals(book.name) &&
                 stock.get() == book.stock.get() &&
                 price.equals(book.price);

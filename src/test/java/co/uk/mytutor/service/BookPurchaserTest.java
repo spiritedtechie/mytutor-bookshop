@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Optional;
@@ -49,8 +48,8 @@ public class BookPurchaserTest {
 
         bookPurchaser.purchase(BOOK_NAME, BookPurchaserTest.REQUIRED_QUANTITY);
 
-        Mockito.verify(bookRepository).get(BOOK_NAME);
-        Mockito.verify(mockBook).purchase(BookPurchaserTest.REQUIRED_QUANTITY);
+        verify(bookRepository).get(BOOK_NAME);
+        verify(mockBook).purchase(BookPurchaserTest.REQUIRED_QUANTITY);
     }
 
     @Test

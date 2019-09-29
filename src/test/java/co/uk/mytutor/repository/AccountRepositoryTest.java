@@ -1,6 +1,5 @@
 package co.uk.mytutor.repository;
 
-import co.uk.mytutor.model.Account;
 import co.uk.mytutor.model.Book;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,15 +19,15 @@ public class AccountRepositoryTest {
 
     @Test
     public void testInstantiatesAccountWithInitialBalance() {
-        Account account = accountRepository.get();
+        var account = accountRepository.get();
 
         assertThat(account.getBalance()).isEqualTo(new BigDecimal(500));
     }
 
     @Test
     public void testAccountSingletonAccountIsReturn() {
-        Account account1 = accountRepository.get();
-        Account account2 = accountRepository.get();
+        var account1 = accountRepository.get();
+        var account2 = accountRepository.get();
 
         account1.recordPurchase(new Book("A", 10, 10), 2);
 

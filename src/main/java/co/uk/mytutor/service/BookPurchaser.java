@@ -1,6 +1,5 @@
 package co.uk.mytutor.service;
 
-import co.uk.mytutor.model.Account;
 import co.uk.mytutor.model.Book;
 import co.uk.mytutor.model.PurchaseStatus;
 import co.uk.mytutor.repository.AccountRepository;
@@ -25,13 +24,13 @@ public class BookPurchaser {
     }
 
     public PurchaseStatus purchase(String bookName, Integer quantity) {
-        Optional<Book> book = findBook(bookName);
+        var book = findBook(bookName);
 
         if (!book.isPresent()) {
             return PurchaseStatus.nonExistentBook();
         }
 
-        PurchaseStatus purchaseStatus = attemptBookPurchase(book.get(), quantity);
+        var purchaseStatus = attemptBookPurchase(book.get(), quantity);
 
         updateBookshopAccount(purchaseStatus, book, quantity);
 
@@ -40,7 +39,7 @@ public class BookPurchaser {
 
     private void updateBookshopAccount(PurchaseStatus purchaseStatus, Optional<Book> book, Integer quantity) {
         if (purchaseStatus instanceof PurchaseStatus.Successful) {
-            Account account = this.accountRepository.get();
+            var account = this.accountRepository.get();
             account.recordPurchase(book.get(), quantity);
 
             LOGGER.debug("Account balance is: " + account.getBalance());

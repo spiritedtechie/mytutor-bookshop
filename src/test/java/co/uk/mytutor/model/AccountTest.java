@@ -10,8 +10,8 @@ public class AccountTest {
 
     @Test
     public void testRecordPurchase() {
-        Book book = new Book("A", 10, 10);
-        Account account = new Account(20);
+        var book = new Book("A", 10, 10);
+        var account = new Account(20);
 
         account.recordPurchase(book, 4);
 
