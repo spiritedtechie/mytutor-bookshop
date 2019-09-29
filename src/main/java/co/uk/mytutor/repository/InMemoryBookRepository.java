@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class InMemoryBookRepository implements BookRepository {
 
-    private ConcurrentHashMap<String, Book> books = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, Book> books = new ConcurrentHashMap<>();
 
     public InMemoryBookRepository() {
         Book a = new Book("A", 10, BigDecimal.valueOf(25));

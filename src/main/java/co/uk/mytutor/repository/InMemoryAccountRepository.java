@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 @Component
 public class InMemoryAccountRepository implements AccountRepository {
 
-    private Account account;
+    private final Account account;
 
     public InMemoryAccountRepository() {
         this.account = new Account(new BigDecimal(500));
