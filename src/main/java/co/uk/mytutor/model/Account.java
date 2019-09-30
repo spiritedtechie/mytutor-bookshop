@@ -14,8 +14,8 @@ public class Account {
         this(new BigDecimal(balance));
     }
 
-    public void recordPurchase(Book book, Integer quantity) {
-        var purchasePriceTotal = book.getPurchasePrice(quantity);
+    public void recordPurchase(Purchasable item, Integer quantity) {
+        var purchasePriceTotal = item.getPurchasePrice(quantity);
 
         synchronized (balance) {
             balance = balance.add(purchasePriceTotal);

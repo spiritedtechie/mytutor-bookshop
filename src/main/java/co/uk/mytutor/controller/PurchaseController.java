@@ -2,6 +2,7 @@ package co.uk.mytutor.controller;
 
 import co.uk.mytutor.model.PurchaseStatus;
 import co.uk.mytutor.service.BookPurchaser;
+import co.uk.mytutor.service.Purchaser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -16,19 +17,19 @@ public class PurchaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PurchaseController.class);
 
-    private BookPurchaser bookPurchaser;
+    private Purchaser purchaser;
 
-    public PurchaseController(BookPurchaser bookPurchaser) {
-        this.bookPurchaser = bookPurchaser;
+    public PurchaseController(Purchaser purchaser) {
+        this.purchaser = purchaser;
     }
 
     @RequestMapping(value = "/order", method = RequestMethod.POST)
-    public ResponseEntity purchase(@RequestParam(name = "book_name") String bookName,
-                                   @RequestParam Integer quantity) {
+    public ResponseEntity bookPurchase(@RequestParam(name = "book_name") String bookName,
+                                       @RequestParam Integer quantity) {
 
         LOGGER.info("purchase book: " + bookName + ", quantity: " + quantity);
 
-        var purchaseStatus = bookPurchaser.purchase(bookName, quantity);
+        var purchaseStatus = purchaser.purchase(bookName, quantity);
 
         return responseFor(purchaseStatus);
     }
@@ -38,8 +39,8 @@ public class PurchaseController {
             return ResponseEntity.status(HttpStatus.OK).body(new Response("Thank you for your purchase!"));
         } else if (status instanceof PurchaseStatus.OutOfStock) {
             return ResponseEntity.status(HttpStatus.OK).body(new Response("Sorry, we are out of stock."));
-        } else if (status instanceof PurchaseStatus.NonExistentBook) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Book was not found."));
+        } else if (status instanceof PurchaseStatus.NonExistentItem) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Item was not found."));
         } else {
             return null;
         }

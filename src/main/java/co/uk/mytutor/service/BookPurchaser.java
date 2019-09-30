@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class BookPurchaser {
+public class BookPurchaser implements Purchaser {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BookPurchaser.class);
 
@@ -23,21 +23,22 @@ public class BookPurchaser {
         this.bookRepository = bookRepository;
     }
 
-    public PurchaseStatus purchase(String bookName, Integer quantity) {
-        var book = findBook(bookName);
+    @Override
+    public PurchaseStatus purchase(String identifier, Integer quantity) {
+        var book = findBook(identifier);
 
         if (!book.isPresent()) {
-            return PurchaseStatus.nonExistentBook();
+            return PurchaseStatus.nonExistentItem();
         }
 
         var purchaseStatus = attemptBookPurchase(book.get(), quantity);
 
-        updateBookshopAccount(purchaseStatus, book, quantity);
+        updateAccount(purchaseStatus, book, quantity);
 
         return purchaseStatus;
     }
 
-    private void updateBookshopAccount(PurchaseStatus purchaseStatus, Optional<Book> book, Integer quantity) {
+    private void updateAccount(PurchaseStatus purchaseStatus, Optional<Book> book, Integer quantity) {
         if (purchaseStatus instanceof PurchaseStatus.Successful) {
             var account = this.accountRepository.get();
             account.recordPurchase(book.get(), quantity);

@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Book {
+public class Book implements Purchasable {
 
     private final String name;
     private AtomicInteger stock;
@@ -52,10 +52,12 @@ public class Book {
         return Integer.valueOf(this.stock.get());
     }
 
+    @Override
     public BigDecimal getPurchasePrice(Integer quantity) {
         return price.multiply(BigDecimal.valueOf(quantity));
     }
 
+    @Override
     public synchronized PurchaseStatus purchase(Integer requiredQuantity) {
         if (leavesBookOutOfStock(requiredQuantity)) {
             return PurchaseStatus.outOfStock();

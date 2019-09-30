@@ -58,7 +58,7 @@ public class BookPurchaserTest {
 
         PurchaseStatus result = bookPurchaser.purchase(BookPurchaserTest.BOOK_NAME, BookPurchaserTest.REQUIRED_QUANTITY);
 
-        assertThat(result).isInstanceOf(PurchaseStatus.NonExistentBook.class);
+        assertThat(result).isInstanceOf(PurchaseStatus.NonExistentItem.class);
     }
 
     @Test

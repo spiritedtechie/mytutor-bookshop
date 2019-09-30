@@ -66,7 +66,7 @@ public class PurchaseControllerTest {
 
     @Test
     public void testPurchaseWhereBookNotFound() throws Exception {
-        when(bookPurchaser.purchase(BOOK_NAME, QUANTITY)).thenReturn(PurchaseStatus.nonExistentBook());
+        when(bookPurchaser.purchase(BOOK_NAME, QUANTITY)).thenReturn(PurchaseStatus.nonExistentItem());
 
         var resultActions = mvc.perform(
                 post("/order")
@@ -76,6 +76,6 @@ public class PurchaseControllerTest {
 
         resultActions
                 .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.message", is("Book was not found.")));
+                .andExpect(jsonPath("$.message", is("Item was not found.")));
     }
 }

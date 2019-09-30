@@ -12,8 +12,8 @@ public class PurchaseStatus {
         }
     }
 
-    public static final class NonExistentBook extends PurchaseStatus {
-        private NonExistentBook() {
+    public static final class NonExistentItem extends PurchaseStatus {
+        private NonExistentItem() {
         }
     }
 
@@ -25,7 +25,7 @@ public class PurchaseStatus {
         return new OutOfStock();
     }
 
-    public static final PurchaseStatus nonExistentBook() {
-        return new NonExistentBook();
+    public static final PurchaseStatus nonExistentItem() {
+        return new NonExistentItem();
     }
 }
